@@ -1,0 +1,25 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: cimg/android:latest
+    environment:
+      ANDROID_HOME: /usr/local/android-sdk
+      ANDROID_BUILD_TOOLS: 30.0.3
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            echo "Installing dependencies..."
+            apt-get install -y xz-utils zipalign zip
+      - run:
+          name: Build the project
+          command: |
+            echo "Building the project..."
+            ARCHES="aarch64" ./scripts/android/build-android.sh -gs
+      - store_artifacts:
+          path: app/build/outputs/apk/debug
+          destination: app-debug.apk
+      - store_test_results:
+          path: app/build/test-results
