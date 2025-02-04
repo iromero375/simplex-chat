@@ -15,6 +15,7 @@ jobs:
           name: Build the project
           command: |
             echo "Building the project..."
+            export USER=$(whoami)
             ARCHES="aarch64" ./scripts/android/build-android.sh -gs
 
 workflows:
