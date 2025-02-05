@@ -15,7 +15,7 @@ jobs:
           name: Build the project
           command: |
             echo "Building the project..."
-            sed -i "s/distributionUrl=https:\/\/services.gradle.org\/distributions\/gradle-8.7-bin.zip/distributionUrl=https:\/\/services.gradle.org\/distributions\/gradle-$(gradle -v | grep Gradle | cut -d ' ' -f2)-bin.zip/" apps/multiplatform/gradle/wrapper/gradle-wrapper.properties
+            sed -i "s#distributionUrl=https://services.gradle.org/distributions/gradle-8.7-bin.zip#distributionUrl=https://services.gradle.org/distributions/gradle-$(gradle -v | grep Gradle | cut -d ' ' -f2)-bin.zip#" apps/multiplatform/gradle/wrapper/gradle-wrapper.properties
             export USER=$(whoami)
             ARCHES="aarch64" ./scripts/android/build-android.sh -gs
 
