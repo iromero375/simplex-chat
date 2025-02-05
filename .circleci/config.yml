@@ -15,8 +15,6 @@ jobs:
           name: Build the project
           command: |
             echo "Building the project..."
-            VERSION=$(gradle -v | grep Gradle | cut -d ' ' -f2)
-            sed -i "s#distributionUrl=https://services.gradle.org/distributions/gradle-8.7-bin.zip#distributionUrl=https://services.gradle.org/distributions/gradle-$VERSION-bin.zip#" apps/multiplatform/gradle/wrapper/gradle-wrapper.properties
             export USER=$(whoami)
             ARCHES="aarch64" ./scripts/android/build-android.sh -gs
 
