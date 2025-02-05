@@ -1,25 +1,10 @@
 version: 2.1
-
 jobs:
   build:
-    docker:
-      - image: cimg/android:2025.02
+    machine:
+      image: ubuntu-2204:2024.11.1
+    resource_class: large
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: |
-            gradle -v
-            echo "Installing dependencies..."
-            sudo apt-get update && sudo apt-get install -y xz-utils zipalign zip
-      - run:
-          name: Build the project
-          command: |
-            echo "Building the project..."
-            export USER=$(whoami)
-            ARCHES="aarch64" ./scripts/android/build-android.sh -gs
-
-workflows:
-  build_and_test:
-    jobs:
-      - build
+      - run: sudo apt-get update && sudo apt-get install -y xz-utils zipalign zip
+      - run: export USER=$(whoami) && ARCHES="aarch64" ./scripts/android/build-android.sh -gs
